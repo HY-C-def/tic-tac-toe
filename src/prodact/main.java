@@ -118,7 +118,7 @@ public class main {
 			//cpuの番
 			//playerを邪魔するところに✕を置く
 			//隣り合うところがなくなったらNullに入れるようにする
-			//もっかい埋まってないか確認
+			//埋まってないか確認
 			nulls = findNull(array);
 			System.out.println(nulls);
 			if (nulls == 0) {
@@ -127,7 +127,7 @@ public class main {
 			}
 			System.out.println("\nあいての番です\n");
 
-			//揃いそうなところを妨害する
+			
 
 			int count = 0;
 
@@ -136,8 +136,7 @@ public class main {
 				count++;
 				System.out.println(count + "回目\n");
 
-				//入れるところが見tからなければ空白のところに入れる
-				//階層のせいでループが終わらないのなら、メソッド化して空白のセルの場所だけおくってもらう
+				//入れるところが見つからなければ空白のところに入れる
 				if (count > 9) {
 					int[] sell = findSell(array);
 					array[sell[0]][sell[1]] = icons[1];
@@ -325,37 +324,6 @@ public class main {
 
 	}
 
-	//無理だわ
-	//winMax法
-	//妨害
-	//並んでいるところから優先的につぶしに行く
-	//配列の並びを確認して相手の記号が入っていればカウント。カウントが二以上なら残りの空白セルに代入
-//	//ここではカウントが２カウントかどうかだけ確かめて、優先的に処理を埋めに行く処理は別で組んだほうがいいかも
-//	public static List<String> blockSell(String[][] array) {
-//		String[] icons = { "〇", "✕" };
-//		int[] length = new int[9];
-//		int[] side = new int[9];
-//		int count = 0;
-//	
-//		
-//		for (int i = 0; i < 3; i++) {
-//			for (int j = 0; j < 3; j++) {
-//				count++;
-//				//System.out.println(array[i][j]);
-//				if (array[i][j].equals(icons[0])) {
-//					length[count]=i;
-//					side[count]=j;
-//					
-//				}
-//			}
-//
-//		}
-//for(int i = 0;i < sell.size() ; i++) {
-//	System.out.println(sell.get(i));
-//}
-//		
-//		return sell;
-//	}
 
 	//	盤面の表示
 	public static void WriteBord(String[][] array) {
