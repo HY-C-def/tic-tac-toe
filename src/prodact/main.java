@@ -15,7 +15,6 @@ public class main {
 		String[] icons = { "〇", "✕" };
 
 		//タイトル		
-		//三つ並ばないようにif文入れたい
 		//textあとで分けたい
 
 		System.out.println("\n**********************");
@@ -46,27 +45,23 @@ public class main {
 		//二次元配列で１．１や３．１といった数字で記号を入れる場所を選択できるようにする
 		//プレイヤーとプログラムが交互に記号を打ち込む。
 		//もともと入ってる場所には記号を入れることはできない
-
-		//三つそろうとゲームクリア！
-
-		//そろわないまま全部埋まると引き分け
 		String[][] array = new String[3][3];
 
 		System.out.println("あなたは〇です。\n自分の番が来たら記号を置く場所を「1,1」のように指定してください。");
 
-		//whileループで盤面が埋まるまで続ける
+		//3つ並ぶか盤面が埋まるまで続ける
 		while (true) {
 
 			//cpuの勝利判定
 			boolean lost = cpuWin(array);
-			if (lost == true) {
+			if (lost) {
 				System.out.println("敗北！");
 				break;
 			}
 
 			//null数える
 			int nulls = findNull(array);
-			System.out.println(nulls);
+			
 			if (nulls == 0) {
 				System.out.println("\n引き分け\n");
 				break;
@@ -81,12 +76,12 @@ public class main {
 			while (true) {
 				String num = in.nextLine();
 
-				//正規表現で想定していない入力を防ぐ
+				//想定外の入力を防ぐ
 				Pattern p = Pattern.compile("[1-3]{1},[1-3]{1}");
-				Matcher m =p.matcher(num);
+				Matcher m = p.matcher(num);
 				if (!m.matches()) {
 					System.out.println("書き方が違います。「1,1」のように入力してください");
-					 continue; 
+					continue;
 				}
 				String[] numArray = num.split(",");
 				for (int i = 0; i < numArray.length; i++) {
@@ -111,13 +106,14 @@ public class main {
 
 			//playerの勝利判定
 			boolean win = playerWin(array);
-			if (win == true) {
+			if (win) {
 				System.out.println("勝利！");
 				break;
 			}
 			//cpuの番
 			//playerを邪魔するところに✕を置く
 			//隣り合うところがなくなったらNullに入れるようにする
+			
 			//埋まってないか確認
 			nulls = findNull(array);
 			System.out.println(nulls);
@@ -127,11 +123,8 @@ public class main {
 			}
 			System.out.println("\nあいての番です\n");
 
-			
-
 			int count = 0;
 
-			//findNullloop:
 			while (true) {
 				count++;
 				System.out.println(count + "回目\n");
@@ -145,6 +138,7 @@ public class main {
 				} else {
 					int length = nums[0];
 					int side = nums[1];
+					
 					//縦の処理
 					if (nums[0] == 0) {
 						int number = RandamIcon(random);
@@ -230,14 +224,14 @@ public class main {
 
 	//空白のセルを探す
 	public static int[] findSell(String[][] array) {
+	String[] icons = { "〇", "✕" };
 		int length = 0;
 		int side = 0;
 		//配列の中で一番後方にある空白のセルに代入となる
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				//System.out.println(array[i][j]);
-				if (!(array[i][j].equals(array[0]))) {
-					if (!(array[i][j].equals(array[1]))) {
+				if (!(array[i][j].equals(icons[0]))) {
+					if (!(array[i][j].equals(icons[1]))) {
 						length = i;
 						side = j;
 					}
@@ -246,7 +240,6 @@ public class main {
 			}
 
 		}
-		//System.out.println(array[length][side]);
 		int[] sell = { length, side };
 
 		return sell;
@@ -323,7 +316,6 @@ public class main {
 		}
 
 	}
-
 
 	//	盤面の表示
 	public static void WriteBord(String[][] array) {
